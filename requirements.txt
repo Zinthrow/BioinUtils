@@ -1,1 +1,5 @@
 sh
+Bio
+edlib
+primer3-py == 2.0.3
+xmltodict

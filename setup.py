@@ -34,14 +34,14 @@ def _pip_requirement(req):
     return [req]
 
 
-def _strip_comments(l):
-    return l.split('#', 1)[0].strip()
+def _strip_comments(line):
+    return line.split('#', 1)[0].strip()
 
 
 def _reqs(*f):
     return [
         _pip_requirement(r) for r in (
-            _strip_comments(l) for l in open('requirements.txt').readlines())
+            _strip_comments(line) for line in open('requirements.txt').readlines())
         if r]
 
 
@@ -60,12 +60,13 @@ def install_requires():
 
 setup(
     name='bioinutils',
-    version=find_version("src", "__init__.py"),
+    version=find_version("src/bioinutils/", "__init__.py"),
     description='python package for command line blast',
     url='https://github.com/Zinthrow/BioinUtils',
     author='Alexander Larsen',
     author_email='alarsen525@gmail.com',
     packages=find_packages(where='src'),
+    package_dir={'': 'src'},
     include_package_data=True,
     install_requires=install_requires(),
     python_requires=">=3.7"

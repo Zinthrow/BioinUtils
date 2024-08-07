@@ -1,3 +1,18 @@
+import xmltodict
+from Bio import Entrez
+from sh import elink
+import logging
+import os
+import re
+import subprocess
+from subprocess import call
+import json
+
+from io import StringIO
+
+logger = logging.getLogger(__name__)
+
+
 class EntrezWrapper(object):
     """
     Downloads files from the NCBI nucleotide database.
@@ -220,7 +235,10 @@ class EntrezWrapper(object):
             )
         elif q_type == "partial":
             query = query.replace("_", " ")
-            mquery = f'{query} AND latest+{assembly_db}[filter] AND ("complete genome"[filter] OR "chromosome level"[filter] OR "scaffold level"[filter])'
+            mquery = (
+                f'{query} AND latest+{assembly_db}[filter] AND ("complete genome"[filter] OR "chromosome'
+                + 'level"[filter] OR "scaffold level"[filter])'
+            )
         else:
             mquery = query
 
@@ -472,4 +490,3 @@ class EntrezWrapper(object):
             gbff_list.append(filepath.rstrip(".gz"))
 
         return gbff_list[0]
-
