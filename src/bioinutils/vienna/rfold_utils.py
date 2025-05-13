@@ -1,7 +1,6 @@
-from sh import RNAFold
+from sh import RNAfold
 from io import StringIO
 import re
-
 from dataclasses import dataclass
 
 
@@ -50,7 +49,7 @@ def input_rfold(fileio, temperature=37):
     """
 
     buffer = StringIO()
-    RNAFold("--noPS", "-T", temperature, _in=fileio, _out=buffer)
+    RNAfold("--noPS", "-T", temperature, _in=fileio, _out=buffer)
 
     buffer.seek(0)
     results = escape_ansi(buffer.read()).split(">")[1:]
